@@ -36,7 +36,7 @@ function getPageEachDigitMultiply(page) {
 function isValidPage(pobi, crong) {
   const PAGE_LIST = [...pobi, ...crong];
   // 시작 면이나 마지막 면이 나올 경우
-  if (PAGE_LIST.includes(0) || PAGE_LIST.includes(400)) return false;
+  if (PAGE_LIST.includes(1) || PAGE_LIST.includes(400)) return false;
 
   // 왼쪽과 오른쪽 페이지 쌍이 옳지 않을 경우
   if (pobi[0] + 1 !== pobi[1]) return false;
