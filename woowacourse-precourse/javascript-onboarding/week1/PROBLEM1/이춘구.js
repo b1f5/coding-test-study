@@ -27,7 +27,7 @@ function problem1(pobi, crong) {
   // 포비와 크롱의 점수를 비교해서 그 결과에 따른 값을 반환한다.
   if (pobiScore === crongScore) return result.DRAW;
   if (pobiScore > crongScore) return result.POBI_WON;
-  if (pobiScore < crongScore) return result.CRONG_WON;
+  return result.CRONG_WON;
 }
 
 /**
