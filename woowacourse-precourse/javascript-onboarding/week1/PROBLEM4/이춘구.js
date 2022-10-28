@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * 엄마의 말을 청개구리 말로 변환해서 반환하는 함수
  * @param {string} word 청개구리 엄마의 말
@@ -16,7 +17,7 @@ function problem4(word) {
 
 /**
  * 청개구리 사전을 만드는 함수
- * @returns {{[string]:string}} 청개구리 사전
+ * @returns {Object.<string, string>} 청개구리 사전
  */
 function makeFrogDictionary() {
   // 각각 ASCII 넘버 65(A)와 97(a)를 시작으로 총 26개의 문자열을 갖는 배열을 두 개 만든다.
@@ -47,7 +48,7 @@ function makeLettersFromASCII(start, count) {
 /**
  * 글자들을 반대로 변환하고 매핑해서 반환하는 함수
  * @param {string[]} letters 글자들
- * @returns {{[string]:string}} 반대로 매핑된 하위 사전
+ * @returns {Object.<string, string> | {}} 반대로 매핑된 하위 사전
  */
 function makeSubDictionary(letters) {
   // 하위 사전을 빈 객체로 초기화한다.
@@ -66,7 +67,7 @@ function makeSubDictionary(letters) {
 /**
  * 청개구리 사전을 기반으로 변환해서 반환하는 함수
  * @param {string} word 청개구리 말로 변환할 말
- * @param {{[string]:string}} frogDictionary 청개구리 사전
+ * @param {Object.<string, string>} frogDictionary 청개구리 사전
  * @returns {string} 청개구리 말로 변환된 말
  */
 function convertToFrogLanguage(word, frogDictionary) {
