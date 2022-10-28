@@ -6,28 +6,34 @@
  */
 function problem1(pobi, crong) {
   // 결과에 따라 반환할 값을 정해둔 객체
-  const result = {
+  const resultObj = {
     EXCEPTION: -1,
     DRAW: 0,
     POBI_WON: 1,
     CRONG_WON: 2,
   };
 
+  // 결과는 예외로 초기화한다.
+  let result = resultObj.EXCEPTION;
+
   // 포비와 크롱이 펼친 페이지가 유효한 페이지인지 검사한다.
   const isPobiPagesValid = validatePages(pobi);
   const isCrongPagesValid = validatePages(crong);
 
-  // 둘 중 하나라도 유효하지 않은 페이지라면 -1을 반환한다.
-  if (!isPobiPagesValid || !isCrongPagesValid) return result.EXCEPTION;
+  // 둘 중 하나라도 유효하지 않은 페이지라면 현재 결과(예외)를 반환한다.
+  if (!isPobiPagesValid || !isCrongPagesValid) return result;
 
   // 포비와 크롱의 점수를 계산한다.
   const pobiScore = calculateScore(pobi);
   const crongScore = calculateScore(crong);
 
-  // 포비와 크롱의 점수를 비교해서 그 결과에 따른 값을 반환한다.
-  if (pobiScore === crongScore) return result.DRAW;
-  if (pobiScore > crongScore) return result.POBI_WON;
-  return result.CRONG_WON;
+  // 포비와 크롱의 점수를 비교해서 그 결과에 따른 값을 result에 할당한다.
+  if (pobiScore === crongScore) result = resultObj.DRAW;
+  else if (pobiScore > crongScore) result = resultObj.POBI_WON;
+  else if (pobiScore < crongScore) result = resultObj.CRONG_WON;
+
+  // result를 반환한다.
+  return result;
 }
 
 /**
@@ -47,9 +53,9 @@ function validatePages(pages) {
 
   // 왼쪽 페이지가 1이거나 오른쪽 페이지가 400이거나
   // 페이지가 연속되지 않으면 유효성에 false를 할당한다.
-  if (left === FIRST_PAGE) isValid = false;
-  if (right === LAST_PAGE) isValid = false;
-  if (left + 1 !== right) isValid = false;
+  if (right === FIRST_PAGE) isValid = false;
+  else if (left === LAST_PAGE) isValid = false;
+  else if (left + 1 !== right) isValid = false;
 
   // 유효성을 반환한다.
   return isValid;
@@ -71,11 +77,12 @@ function calculateScore(pages) {
 
     // 각 자리의 수를 더한 값이 현재 점수보다 크다면 할당한다.
     const sum = numbers.reduce((sum, number) => sum + number, 0);
-    if (score < sum) score = sum;
 
     // 각 자리의 수를 곱한 값이 현재 점수보다 크다면 할당한다.
     const product = numbers.reduce((product, number) => product * number, 1);
-    if (score < product) score = product;
+    
+    // sum과 product 중 큰 것을 score에 할당한다.
+    score = sum < product ? product : sum;
   }
 
   // 점수를 반환한다.
