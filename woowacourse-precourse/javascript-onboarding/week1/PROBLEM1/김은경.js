@@ -1,21 +1,13 @@
 // getMaximum : 배열로 받은 수 들을 더한 값과 곱한 값 중 최대값을 리턴하는 함수
 function getMaximum(array) {
   let candidates = [];
-  // 더하기값 구하기
-  for (let e of array) {
-    candidates.push(
-      String(e)
-        .split('')
-        .reduce((sum, cur) => sum + parseInt(cur), 0)
-    );
-  }
-  // 곱하기값 구하기
-  for (let e of array) {
-    candidates.push(
-      String(e)
-        .split('')
-        .reduce((sum, cur) => sum * parseInt(cur), 1)
-    );
+  for (let pageNumber of array) {
+    // pageNumber를 한자리씩 쪼개어 splitNumber에 담아줌
+    const splitNumber = pageNumber.toString().split('');
+    // 더하기 값 구하기
+    candidates.push(splitNumber.reduce((sum, cur) => sum + parseInt(cur), 0));
+    // 곱하기 값 구하기
+    candidates.push(splitNumber.reduce((sum, cur) => sum * parseInt(cur), 1));
   }
   // 더하기/곱하기 값 중 가장 큰 수 리턴
   return Math.max(...candidates);
@@ -30,7 +22,7 @@ function problem1(pobi, crong) {
     WINNER_TIE: 0,
   };
 
-  // 예외사항 제외
+  // 좌,우 페이지 번호가 이어지지 않는 경우 예외처리
   if (pobi[0] + 1 !== pobi[1] || crong[0] + 1 !== crong[1])
     return gameResult.EXCEPTION;
 
