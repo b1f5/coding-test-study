@@ -25,11 +25,11 @@ function makeFrogDictionary() {
   const smallLetters = makeLettersFromASCII(97, 26);
 
   // 대문자와 소문자 각각의 반대로 변환된 하위 사전을 만든다.
-  const CapitalSubDictionary = makeSubDictionary(capitalLetters);
+  const capitalSubDictionary = makeSubDictionary(capitalLetters);
   const smallSubDictionary = makeSubDictionary(smallLetters);
 
   // 두 하위 사전을 하나의 사전으로 합쳐 청개구리 사전을 완성한다.
-  const frogDictionary = { ...CapitalSubDictionary, ...smallSubDictionary };
+  const frogDictionary = { ...capitalSubDictionary, ...smallSubDictionary };
 
   // 청개구리 사전을 반환한다.
   return frogDictionary;
