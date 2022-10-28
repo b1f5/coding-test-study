@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * @param {number[]} pobi 포비가 펼친 페이지
  * @param {number[]} crong 크롱이 펼친 페이지
