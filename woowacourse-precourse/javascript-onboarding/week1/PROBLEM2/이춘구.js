@@ -6,7 +6,7 @@
  */
 function problem2(cryptogram) {
   // 현재 글자가 두 번 이상 연속으로 반복되는지 검사할 정규표현식을 만든다.
-  const ConsecutiveDuplicationPattern = /([a-z])\1+/;
+  const ConsecutiveDuplicationPattern = /([a-z])\1+/g;
 
   // 연속하는 중복 문자가 있는지 검사한다.
   const hasConsecutiveDuplication =
