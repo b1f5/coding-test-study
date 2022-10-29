@@ -29,4 +29,4 @@ function problem4(word) {
   return result.join('');
 }
 
-export default problem4;
+module.exports = problem4;
