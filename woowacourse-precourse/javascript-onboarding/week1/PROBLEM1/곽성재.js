@@ -1,8 +1,15 @@
 function problem1(pobi, crong) {
   var answer;
+  const GAME_RESULT = {
+    WINNER_POBI: 1,
+    WINNER_CRONG: 2,
+    DRAW: 0,
+    EXCEPTION: -1,
+  };
+
   // 5) 예외사항을 처리하는 과정
-  if (exceptionHandle(pobi) || exceptionHandle(crong)) {
-    answer = -1;
+  if (isException(pobi) || isException(crong)) {
+    answer = GAME_RESULT.EXCEPTION;
     return answer;
   }
   // 3) 플레이어 각각의 점수를 계산하는 과정
@@ -10,11 +17,11 @@ function problem1(pobi, crong) {
   const crongScore = calculateScore(crong);
   // 4) 플레이어 점수를 비교하는 과정
   if (pobiScore > crongScore) {
-    answer = 1;
+    answer = GAME_RESULT.WINNER_POBI;
   } else if (pobiScore === crongScore) {
-    answer = 0;
+    answer = GAME_RESULT.DRAW;
   } else if (pobiScore < crongScore) {
-    answer = 2;
+    answer = GAME_RESULT.WINNER_CRONG;
   }
   return answer;
 }
@@ -43,10 +50,12 @@ function calculateScore(pageArr) {
 // 1씩차이가 안난다
 // 짝홀로 입력된다(이건 제한사항에서 걸러진다고 생각)
 // 범위 1 ~ 400을넘긴다
-function exceptionHandle(pageArr) {
-  if (pageArr[1] - pageArr[0] !== 1) {
+function isException(pageArr) {
+  const PAGE_LEFT = pageArr[0];
+  const PAGE_RIGHT = pageArr[1];
+  if (PAGE_RIGHT - PAGE_LEFT !== 1) {
     return true;
-  } else if (pageArr[0] < 1 || pageArr[1] > 400) {
+  } else if (PAGE_LEFT < 1 || PAGE_RIGHT > 400) {
     return true;
   } else {
     return false;
