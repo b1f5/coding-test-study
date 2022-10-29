@@ -6,7 +6,7 @@ function problem2(cryptogram) {
     decode = decode.replace(pattern, '');
   }
   // 중복문자열 제거가 완료된 변수 decode를 리턴, 남아있는 문자열이 없는경우 공백을 리턴한다.
-  return decode ? decode : '';
+  return decode;
 }
 
 module.exports = problem2;
