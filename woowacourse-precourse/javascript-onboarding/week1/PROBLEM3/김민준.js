@@ -9,7 +9,8 @@ function solution() {
 
   const RESULT = numberListString
     .split('')
-    .filter((el) => el == 3 || el == 6 || el == 9).length;
+    .map(Number)
+    .filter((el) => el === 3 || el === 6 || el === 9).length;
 
   return RESULT;
 }
