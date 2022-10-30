@@ -31,7 +31,7 @@ function getPageEachDigitMultiply(page) {
  * 
  * @param {number[]} pobi pobi의 [왼쪽, 오른쪽] 페이지
  * @param {number[]} crong crong의 [왼쪽, 오른쪽] 페이지
- * @returns 
+ * @returns {number[]} pobi와 crong의 최대 점수 return
  */
 function getMaxScore(pobi, crong) {
   const [POBI_LEFT_PAGE, POBI_RIGHT_PAGE] = pobi;
@@ -63,7 +63,7 @@ function getMaxScore(pobi, crong) {
     CRONG_RIGHT_PAGE_MAX_SCORE
   );
 
-  return { POBI_MAX_SCORE, CRONG_MAX_SCORE };
+  return [POBI_MAX_SCORE, CRONG_MAX_SCORE];
 }
 
 /**
@@ -101,7 +101,7 @@ function solution() {
     CRONG_WIN: 2,
     DRAW: 0,
   };
-  const { POBI_MAX_SCORE, CRONG_MAX_SCORE } = getMaxScore(pobi, crong);
+  const [POBI_MAX_SCORE, CRONG_MAX_SCORE] = getMaxScore(pobi, crong);
 
   if (POBI_MAX_SCORE > CRONG_MAX_SCORE) result = gameResultObj.POBI_WIN;
   else if (POBI_MAX_SCORE < CRONG_MAX_SCORE) result = gameResultObj.CRONG_WIN;
