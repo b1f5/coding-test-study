@@ -16,6 +16,7 @@ function problem6(forms) {
           if (forms[i][1].search(targetNickName.substr(j, 2)) !== -1) {
             // 비교기준 닉네임의 이메일과, 비교대상 닉네임의 이메일을 푸시
             duplicated.push(targetEmail, forms[i][0]);
+            break;
           }
         }
       }
