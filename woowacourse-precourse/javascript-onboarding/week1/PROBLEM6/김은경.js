@@ -1,6 +1,4 @@
 function problem6(forms) {
-  if (forms.length < 1 || forms.length > 10000) return 'Please check the data';
-
   const duplicated = [];
 
   forms.forEach((target, targetIndex) => {
@@ -12,8 +10,8 @@ function problem6(forms) {
         // 비교기준인 이름이 3글자라면, 문자열을 2글자씩 잘라내 비교하므로
         // j = 0, 1 : [제이], [이엠]
         for (let j = 0; j < targetNickName.length - 1; j++) {
-          // 닉네임들 forms[i][1]을 순회하면서 비교기준의 잘라낸 문자열을 가지고 있다면
-          if (forms[i][1].search(targetNickName.substr(j, 2)) !== -1) {
+          // 닉네임들 forms[i][1]을 순회하면서 비교기준의 잘라낸 문자열을 가지고 있다면s
+          if (forms[i][1].includes(targetNickName.slice(j, j + 2))) {
             // 비교기준 닉네임의 이메일과, 비교대상 닉네임의 이메일을 푸시
             duplicated.push(targetEmail, forms[i][0]);
             break;
