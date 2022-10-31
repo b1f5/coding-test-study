@@ -21,15 +21,13 @@ function solution() {
       if (idx < NICKNAME.length - 1) {
         // 연속된 2글자 구하기
         const SUB_NICKNAME = NICKNAME.slice(idx, idx + 2);
-        // 
         const PARENT_NICKNAME = SUB_NICKNAME_OBJ[SUB_NICKNAME];
         // 객체에 이미 SUB_NICKNAME의 부모 NICKNAME이 있고,
-        // 그 부모 NICKNAME이 현재 NICKNAME이 아닐경우 
+        // 그 부모 NICKNAME이 현재 NICKNAME이 아닐경우
         if (PARENT_NICKNAME && PARENT_NICKNAME !== NICKNAME) {
           result.push(EMAIL);
           result.push(USER_EMAIL_OBJ[PARENT_NICKNAME]);
-        }
-        else SUB_NICKNAME_OBJ[SUB_NICKNAME] = NICKNAME;
+        } else SUB_NICKNAME_OBJ[SUB_NICKNAME] = NICKNAME;
       }
     });
   });
