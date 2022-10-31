@@ -4,9 +4,9 @@ function problem5(money) {
   // 5만원권 부터 돌면서 갯수를 구해서 result에 푸시한 뒤,
   // 푸시한 돈만큼 money에서 빼준 뒤 다음 지폐(1만원)로 넘어감
   for (let currency of currencies) {
-    let numberOfTheCurrency = Math.floor(money / currency);
-    result.push(numberOfTheCurrency);
-    money = money - currency * numberOfTheCurrency;
+    let numberOfTheBills = Math.floor(money / currency);
+    result.push(numberOfTheBills);
+    money = money % currency;
   }
   return result;
 }
