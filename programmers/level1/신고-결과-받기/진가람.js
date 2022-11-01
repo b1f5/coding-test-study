@@ -9,28 +9,27 @@ function solution(id_list, report, k) {
   const details = {}; // report로 얻은 이용자의 신고 결과내역
   const counts = {}; // 신고 당한 횟수
   id_list.forEach((id) => (details[id] = new Set()));
-  report
-    .map((el) => el.split(' '))
-    .forEach((user) => {
-      const [from, to] = user;
-      if (!details[from].has(to)) {
-        counts[to] = ++counts[to] || 1;
-        details[from].add(to);
-      }
-    });
 
-  // 정지된 유저 목록
-  const suspened = Object.entries(counts)
-    .filter((c) => c[1] >= k)
-    .map((c) => c[0]);
+  report.forEach((users) => {
+    const [from, to] = users.split(' ');
+    if (!details[from].has(to)) {
+      counts[to] = ++counts[to] || 1;
+      details[from].add(to);
+    }
+  });
 
-  const result = Array.from({ length: id_list.length }, () => 0);
-  let i = 0;
-  for (let user in details) {
-    suspened.forEach((target) => {
-      if (details[user].has(target)) result[i] = ++result[i] || 1;
-    });
-    i++;
-  }
-  return result;
+  return Object.entries(details) //
+    .map(
+      ([_, suspects]) =>
+        [...suspects].filter((user) => counts[user] >= k).length
+    );
 }
+
+/* 
+신고 결과 내역(details)은 객체로 키는 id_list 요소를 이용한다.
+중복 신고는 자유지만, 1회만 인정하기에 값에 Set 구조를 이용한다.
+report 배열을 돌면서 신고 내역을 채우는 것과 함께 각 유저의 신고 당한 횟수도 카운팅한다.
+
+반환할 처리 결과 목록 또한 id_list 순이기에 그것을 이용해 만든 신고결과 내역을 이용해 맵핑한다.
+필요한 것은 Set 구조에 k 이상 신고 당한 자가 몇 명 포함 되있는지 여부다.
+*/
