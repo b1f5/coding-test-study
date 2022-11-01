@@ -1,4 +1,4 @@
-function solution(number) {
+function problem3(number) {
   let clap = 0;
   for (let i = 1; i <= number; i++) {
     i = String(i);
@@ -13,10 +13,10 @@ function solution(number) {
   }
   function count369(num) {
     if (num !== "0" && num % 3 === 0) {
-      console.log(num);
       clap++;
     }
   }
-  return clap;
+  var answer = clap;
+  return answer;
 }
-console.log(solution(33));
+console.log(problem3(33));

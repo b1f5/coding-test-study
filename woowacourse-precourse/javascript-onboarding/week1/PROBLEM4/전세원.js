@@ -26,11 +26,11 @@ function createUpperChar() {
 }
 createLowerCaseChar();
 createUpperChar();
-function solution(words) {
+function problem4(word) {
   let charResult = [];
   let charArray = [];
-  for (let i = 0; i < words.length; i++) {
-    let wordArray = words.charCodeAt([i]);
+  for (let i = 0; i < word.length; i++) {
+    let wordArray = word.charCodeAt([i]);
     charArray.push(wordArray);
   }
   for (char of charArray) {
@@ -47,7 +47,8 @@ function solution(words) {
       charResult.push(index);
     }
   }
-  return String.fromCharCode(...charResult);
+  var answer = String.fromCharCode(...charResult);
+  return answer;
 }
 const word = "I love you";
-console.log(solution(word));
+console.log(problem4(word));

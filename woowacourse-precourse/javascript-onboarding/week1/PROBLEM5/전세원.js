@@ -1,5 +1,5 @@
-function solution(cash) {
-  let temp = cash;
+function problem5(money) {
+  let temp = money;
   let result = [];
   let calArray = [50000, 10000, 5000, 1000, 500, 100, 50, 10, 1];
   for (money of calArray) {
@@ -19,7 +19,8 @@ function solution(cash) {
       finalResult.push(...result[i]);
     }
   }
-  return finalResult;
+  var answer = finalResult;
+  return answer;
 }
 
-console.log(solution(10729));
+console.log(problem5(50237));

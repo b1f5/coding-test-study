@@ -1,4 +1,4 @@
-let nickname = [
+let forms = [
   ["jm@email.com", "제이엠"],
   ["jason@email.com", "제이슨"],
   ["woniee@email.com", "워니"],
@@ -8,12 +8,12 @@ let nickname = [
 let nickOverlapList = new Set(); // 중복된 닉네임만 모아둔 배열
 //닉네임들 모아둔 배열
 let nickArray = [];
-for (let i = 0; i < nickname.length; i++) {
-  nickArray.push(nickname[i][1]);
+for (let i = 0; i < forms.length; i++) {
+  nickArray.push(forms[i][1]);
 }
 //solution 진행시.한명씩 순회를 돌면서 이메일 유효성 검사 및 닉네임 검사를 하게 됨
-function solution(nicknames) {
-  for (crew of nicknames) {
+function problem6(forms) {
+  for (crew of forms) {
     let crewEmail = crew[0];
     let crewNickName = crew[1];
     nicknameValid(crewNickName);
@@ -42,7 +42,8 @@ function solution(nicknames) {
   }
   //마지막 이메일 반환하기 위한 단계
   let result = [...nickOverlapList];
-  return result.sort();
+  var answer = result.sort();
+  return answer;
 }
 
 function emailValid(email) {
@@ -67,4 +68,4 @@ function checkKoreanOnly(koreanChar) {
   return true;
 }
 
-solution(nickname);
+console.log(problem6(forms));

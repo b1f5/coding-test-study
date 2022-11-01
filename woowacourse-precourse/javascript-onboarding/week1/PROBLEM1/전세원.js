@@ -1,19 +1,19 @@
-const pobi = [10, 11];
-const crong = [21, 22];
+const pobi = [97, 98];
+const crong = [197, 198];
 
 function solution(pobi, crong) {
-  let result = [];
+  let answer = [];
   let finalCal = [];
   finalCal.push(cal(pobi), cal(crong));
   console.log(finalCal);
   if (finalCal[0].includes(0) || finalCal[1].includes(0)) {
-    result.push(-1);
+    answer.push(-1);
   } else if (finalCal[0] > finalCal[1]) {
-    result.push(1);
+    answer.push(1);
   } else if (finalCal[0] < finalCal[1]) {
-    result.push(2);
-  } else result.push(0);
-  return result;
+    answer.push(2);
+  } else answer.push(0);
+  return answer;
 }
 
 function cal(a) {

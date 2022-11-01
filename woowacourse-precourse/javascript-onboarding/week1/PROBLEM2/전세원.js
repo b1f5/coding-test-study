@@ -1,21 +1,21 @@
-let cryptogram = "zayelleyz";
+let cryptogram = "zyelleyz";
 
-function solution(consecutiveWord) {
-  let word = consecutiveWord;
-  while (/(.)\1/.test(word)) {
-    check(word);
+function problem2(consecutiveWord) {
+  let answer = consecutiveWord;
+  while (/(.)\1/.test(answer)) {
+    check(answer);
   }
   //연속되는 글자를 word에 재할당 해주는 함수
   function check(checkword) {
-    word = "";
+    answer = "";
     if (/(.)\1/.test(checkword)) {
       let checked = checkword.replace(/(.)\1/, "");
-      word = checked;
+      answer = checked;
     } else {
-      word = checkword;
+      answer = checkword;
     }
   }
-  return word;
+  return answer;
 }
 
-console.log(solution(cryptogram));
+console.log(problem2(cryptogram));
