@@ -20,7 +20,7 @@ function solution(id_list, report, k) {
   }, {});
 
   // countReports 객체에서 정지대상유저의 value를 순회하여 신고자 카운트
-  for (let blockedUser of blockedUsers) {
+  for (const blockedUser of blockedUsers) {
     countReports[blockedUser].forEach((reporter) => {
       mailTo[reporter] += 1;
     });
@@ -32,14 +32,26 @@ function getBlockedUsers(report, k) {
   const cnt = {};
   report.forEach((el) => {
     let reportedPerson = el.split(' ')[1];
-    {
-      cnt[reportedPerson] = (cnt[reportedPerson] || 0) + 1;
-    }
+    cnt[reportedPerson] = (cnt[reportedPerson] || 0) + 1;
   });
   const blockedUsers = [];
-
-  Object.entries(cnt).map((v, i) => {
-    if (v[1] >= k) blockedUsers.push(v[0]);
+  Object.entries(cnt).forEach((v) => {
+    const [reportedPerson, reportedCount] = v;
+    if (reportedCount >= k) blockedUsers.push(reportedPerson);
   });
   return blockedUsers;
 }
+
+// // expect result = [2,1,1,0]
+console.log(
+  solution(
+    ['muzi', 'frodo', 'apeach', 'neo'],
+    ['muzi frodo', 'apeach frodo', 'frodo neo', 'muzi neo', 'apeach muzi'],
+    2
+  )
+);
+
+// // expect result = [0,0]
+console.log(
+  solution(['con', 'ryan'], ['ryan con', 'ryan con', 'ryan con', 'ryan con'], 3)
+);
