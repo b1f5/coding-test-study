@@ -1,27 +1,31 @@
 function solution(id_list, report, k) {
-  const users = id_list.reduce((acc, value) => {
-    return { ...acc, [value]: 0 };
-  }, {});
-
   // 한 유저가 같은 유저를 여러번 신고한 경우(중복신고) 제거
   const countedReports = [...new Set(report)];
 
-  // k번 이상 신고당한 사람들의 목록
+  // 신고당한사람을 key로, 신고 한 사람을 value로 객체 생성
+  const countReports = countedReports.reduce((obj, report) => {
+    const [reporter, reportedPerson] = report.split(' ');
+    obj[reportedPerson] = obj[reportedPerson]
+      ? [...obj[reportedPerson], reporter]
+      : [reporter];
+    return obj;
+  }, {});
+
+  // 정지 대상 유저를 선정
   const blockedUsers = getBlockedUsers(countedReports, k);
 
-  // 결과메일을 발송 할 대상에게 카운트 +1
+  // 메일 카운트용 객체
+  const mailTo = id_list.reduce((acc, value) => {
+    return { ...acc, [value]: 0 };
+  }, {});
+
+  // countReports 객체에서 정지대상유저의 value를 순회하여 신고자 카운트
   for (let blockedUser of blockedUsers) {
-    for (let j = 0; j < countedReports.length; j++) {
-      let [reporter, reportedPerson] = countedReports[j].split(' ');
-      if (blockedUser === reportedPerson) {
-        users[reporter] += 1;
-        countedReports.splice(j, 1);
-        j--;
-      }
-    }
+    countReports[blockedUser].forEach((reporter) => {
+      mailTo[reporter] += 1;
+    });
   }
-  const mailTo = Object.values(users);
-  return mailTo;
+  return Object.values(mailTo);
 }
 
 function getBlockedUsers(report, k) {
@@ -33,22 +37,9 @@ function getBlockedUsers(report, k) {
     }
   });
   const blockedUsers = [];
+
   Object.entries(cnt).map((v, i) => {
     if (v[1] >= k) blockedUsers.push(v[0]);
   });
   return blockedUsers;
 }
-
-// // expect result = [2,1,1,0]
-console.log(
-  solution(
-    ['muzi', 'frodo', 'apeach', 'neo'],
-    ['muzi frodo', 'apeach frodo', 'frodo neo', 'muzi neo', 'apeach muzi'],
-    2
-  )
-);
-
-// // expect result = [0,0]
-// console.log(
-//   solution(['con', 'ryan'], ['ryan con', 'ryan con', 'ryan con', 'ryan con'], 3)
-// );
