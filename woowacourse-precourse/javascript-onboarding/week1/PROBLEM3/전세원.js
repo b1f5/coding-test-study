@@ -12,7 +12,8 @@ function problem3(number) {
     }
   }
   function count369(num) {
-    if (num !== "0" && num % 3 === 0) {
+    num = parseInt(num, 10);
+    if (num !== 0 && num % 3 === 0) {
       clap++;
     }
   }
