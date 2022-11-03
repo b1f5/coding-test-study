@@ -1,8 +1,12 @@
 const MissionUtils = require('@woowacourse/mission-utils');
 
-const guessNum = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3).sort();
-console.log(`=== 테스트용 임의의 숫자 : ${guessNum} ===`);
-
 class App {
-  play() {}
+  play() {
+    // prettier-ignore
+    const guessNum = MissionUtils.Random.pickUniqueNumbersInRange(1, 9, 3).sort();
+    console.log(`=== Guess Numbers : ${guessNum} ===`);
+  }
 }
+
+const app = new App();
+app.play();
