@@ -11,10 +11,13 @@ class App {
       const userNumbers = answer.split('');
       try {
         if (this.checkInput(userNumbers)) {
-          MissionUtils.Console.print('=== valid input ===');
+          // MissionUtils.Console.print('=== valid input ===');
+        }
+        if (answer === guessNum.join('')) {
+          this.printWin();
         }
       } catch (err) {
-        MissionUtils.Console.print('=== invalid input ===');
+        // MissionUtils.Console.print('=== invalid input ===');
         MissionUtils.Console.close();
       }
     });
@@ -35,6 +38,24 @@ class App {
       }
     });
     return true;
+  }
+  printWin() {
+    MissionUtils.Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료');
+    MissionUtils.Console.readLine(
+      '게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',
+      (answer) => {
+        switch (answer) {
+          case '1':
+            this.play();
+            break;
+          case '2':
+            MissionUtils.Console.close();
+            break;
+          default:
+            this.printWin();
+        }
+      }
+    );
   }
 }
 const app = new App();
