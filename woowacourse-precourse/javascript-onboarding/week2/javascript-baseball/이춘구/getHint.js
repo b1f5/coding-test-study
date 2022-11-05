@@ -27,7 +27,7 @@ function getHint(computerAnswer, userAnswer) {
   const strike = matches.strike !== 0 ? matches.strike + HINT.strike : "";
   const nothing = matches.nothing === userNumbers.length ? HINT.nothing : "";
 
-  const hint = `${ball}${space}${strike}${nothing}`;
+  const hint = `${ball + space + strike + nothing}`;
 
   return hint;
 }
