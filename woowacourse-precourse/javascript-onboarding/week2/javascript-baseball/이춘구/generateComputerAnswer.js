@@ -12,9 +12,7 @@ function generateComputerAnswer() {
 
   while (computerAnswer.length < LENGTH) {
     const number = Random.pickNumberInRange(START_INCLUSIVE, END_INCLUSIVE);
-    if (!computerAnswer.includes(number)) {
-      computerAnswer.push(number);
-    }
+    if (!computerAnswer.includes(number)) computerAnswer.push(number);
   }
 
   return computerAnswer;
