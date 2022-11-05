@@ -27,6 +27,7 @@ class App {
           this.gameProceed(userNumbers, this.guessNum);
         }
       } catch (err) {
+        // Console.print(`**입력값 에러발생**`);
         Console.close();
       }
     });
@@ -41,9 +42,9 @@ class App {
     if (new Set(input).size !== 3) {
       throw new RangeError();
     }
-    // 숫자가 아닌 값이 입력 될 경우
+    // 숫자가 아닌 값이나 0이하의 수가 입력 될 경우
     input.forEach((el) => {
-      if (isNaN(parseInt(el))) {
+      if (isNaN(parseInt(el)) || el === 0) {
         throw new TypeError();
       }
     });
@@ -51,34 +52,28 @@ class App {
   }
 
   gameProceed(userNumbers, guessNum) {
+    let strike = 0;
+    let ball = 0;
+    for (let i = 0; i < guessNum.length; i++) {
+      const index = userNumbers.indexOf(guessNum[i].toString());
+      if (index === i) {
+        strike += 1;
+      }
+      if (index !== -1 && index !== i) {
+        ball += 1;
+      }
+    }
+    this.printScore(strike, ball);
     if (this.guessNum.join('') === userNumbers.join('')) {
       return this.printWin();
     }
-    let strike = 0;
-    let ball = 0;
-    let cnt = 0;
-    for (let i = 0; i < guessNum.length; i++) {
-      const index = userNumbers.indexOf(guessNum[i].toString());
-      if (index === -1) {
-        cnt += 1;
-      } else {
-        if (index === i) {
-          strike += 1;
-        } else {
-          ball += 1;
-        }
-      }
-    }
-    if (cnt === 3) {
-      Console.print('낫싱');
-      this.getInput();
-    } else {
-      this.printScore(strike, ball);
-      this.getInput();
-    }
+    this.getInput();
   }
 
   printScore(strike, ball) {
+    if (ball === 0 && strike === 0) {
+      return Console.print('낫싱');
+    }
     if (strike === 0) {
       return Console.print(`${ball}볼`);
     }
@@ -111,3 +106,4 @@ class App {
 
 const app = new App();
 app.play();
+module.exports = App;
