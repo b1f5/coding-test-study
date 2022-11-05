@@ -6,9 +6,9 @@ const generateComputerAnswer = require("./generateComputerAnswer");
 /**
  * 사용자에게 게임의 재시작 또는 종료 여부를 묻고 분기 처리하는 함수
  */
-function askReplayOrStop() {
+function askRestartOrStop() {
   Console.print(MESSAGE.win);
-  Console.readLine(MESSAGE.replayOrStop, (answer) => {
+  Console.readLine(MESSAGE.restartOrStop, (answer) => {
     if (answer === GAME.restart) restartGame();
     if (answer === GAME.stop) stopGame();
     if (answer !== GAME.restart && answer !== GAME.stop) throw new Error();
@@ -24,5 +24,5 @@ function stopGame() {
   Console.close();
 }
 
-module.exports = askReplayOrStop;
+module.exports = askRestartOrStop;
 const playSubroutine = require("./playSubroutine");

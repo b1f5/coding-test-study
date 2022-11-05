@@ -10,7 +10,7 @@ const validateAnswer = require("./validateAnswer");
  * @param {string} hint 힌트
  */
 function playSubroutine(computerAnswer, hint = "") {
-  if (hint === GAME.endCondition) askReplayOrStop();
+  if (hint === GAME.endCondition) askRestartOrStop();
 
   Console.readLine(MESSAGE.requireAnswer, (answer) => {
     const isValid = validateAnswer(answer);
@@ -24,4 +24,4 @@ function playSubroutine(computerAnswer, hint = "") {
 }
 
 module.exports = playSubroutine;
-const askReplayOrStop = require("./askReplayOrStop");
+const askRestartOrStop = require("./askRestartOrStop");
