@@ -1,35 +1,54 @@
 const { Console } = require('@woowacourse/mission-utils');
-const { MATCH_STATUS, SIGN } = require('./config');
+const { MATCH_STATUS, SIGN, LINES } = require('./config');
 const { validateInput, convertToStr, randomGoalNumber } = require('./utils');
 
+/**
+ * 게임 기본 루틴 함수
+ * @param {array} goal_number 컴퓨터가 생성한 임의의 정답, [3,7,1]
+ * @returns {Promise<void>}
+ */
 const playRoutine = function (goal_number) {
   console.log(goal_number);
 
-  Console.readLine('숫자를 입력해주세요 : ', (answer) => {
-    if (!validateInput(answer)) throw new Error('입력값 오류');
+  return interactiveMode(LINES.on_progress)
+    .then((answer) => {
+      const COMPARED_RESULT = matchNumbers(goal_number, answer);
+      const MATCH_RESULT = convertToStr(COMPARED_RESULT);
 
-    const comparedResult = matchNumbers(goal_number, answer);
+      Console.print(MATCH_RESULT);
 
-    const { goal, notFound } = MATCH_STATUS;
-    let match_result;
-    if (!comparedResult) match_result = notFound;
-    else match_result = convertToStr(comparedResult);
-
-    Console.print(match_result);
-    match_result === goal ? printGameOver() : playRoutine(goal_number);
-  });
+      return MATCH_RESULT === MATCH_STATUS.goal
+        ? printGameOver()
+        : playRoutine(goal_number);
+    })
+    .catch((err) => {
+      throw err;
+    });
 };
 
+/**
+ *
+ * @param {string} lines 멘트 문구
+ * @param {boolean} flag 유효성 함수 재사용을 위한 플래그
+ * @returns {Promise<string>}
+ */
+function interactiveMode(lines, flag = false) {
+  return new Promise((res, rej) => {
+    Console.readLine(lines, (answer) => {
+      if (!validateInput(answer, flag)) return rej(new Error('입력값 오류'));
+      else res(answer);
+    });
+  });
+}
+
 function printGameOver() {
-  Console.readLine(
-    '3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n',
-    (answer) => {
-      const { restart, close } = SIGN;
-      if (parseInt(answer) === restart) return playRoutine(randomGoalNumber());
-      if (parseInt(answer) === close) Console.close();
-      else throw new Error('입력값 오류');
-    }
-  );
+  return interactiveMode(LINES.final, true).then((res) => {
+    const RESPONSE = parseInt(res);
+    const SIGN_RESTART = 1;
+    const SIGN_CLOSE = 2;
+    if (RESPONSE === SIGN_RESTART) return playRoutine(randomGoalNumber());
+    if (RESPONSE === SIGN_CLOSE) Console.close();
+  });
 }
 
 /**
@@ -42,7 +61,8 @@ function matchNumbers(goal, subject) {
   const SET_GOAL = new Set(goal);
   const MATCH_RESULT = new Map();
 
-  const { exact, has } = MATCH_STATUS;
+  const MATCH_EXACT = '스트라이크';
+  const MATCH_HAS = '볼';
 
   for (let i = 0; i < subject.length; i++) {
     let TARGET_NUMBER = parseInt(subject[i]);
@@ -50,8 +70,8 @@ function matchNumbers(goal, subject) {
     if (!SET_GOAL.has(TARGET_NUMBER)) continue;
 
     TARGET_NUMBER === goal[i]
-      ? setMatchResult(MATCH_RESULT, exact)
-      : setMatchResult(MATCH_RESULT, has);
+      ? setMatchResult(MATCH_RESULT, MATCH_EXACT)
+      : setMatchResult(MATCH_RESULT, MATCH_HAS);
   }
   return MATCH_RESULT.size ? MATCH_RESULT : undefined;
 }
@@ -68,4 +88,6 @@ function setMatchResult(map, match_status) {
 
 module.exports = {
   playRoutine,
+  interactiveMode,
+  matchNumbers,
 };
