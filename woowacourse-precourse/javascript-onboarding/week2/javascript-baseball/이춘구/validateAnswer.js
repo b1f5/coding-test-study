@@ -7,7 +7,7 @@ function validateAnswer(answer) {
   // const regex = /^(?!.*(.).*\1)\d{3}$/;
   // const isValid = regex.test(answer);
   const LENGTH = 3;
-  const isNumbers = /^\d+$/.test(answer);
+  const isNumbers = /^[1-9]+$/.test(answer);
   const isThreeDigits = answer.length === LENGTH;
   const isUnique = new Set(answer).size === LENGTH;
 
