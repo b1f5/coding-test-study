@@ -22,18 +22,19 @@ class App {
     Console.print(`=== 테스트용 정답 : ${this.guessNum} ===`);
     Console.readLine('숫자를 입력해주세요 : ', (answer) => {
       const userNumbers = answer.split('');
-      try {
-        if (this.checkInput(userNumbers)) {
-          this.gameProceed(userNumbers, this.guessNum);
-        }
-      } catch (err) {
-        // Console.print(`**입력값 에러발생**`);
-        Console.close();
+      if (this.checkInput(userNumbers)) {
+        this.gameProceed(userNumbers, this.guessNum);
       }
     });
   }
 
   checkInput(input) {
+    // 숫자가 아닌 값이나 0이하의 수가 입력 될 경우
+    input.forEach((el) => {
+      if (isNaN(parseInt(el)) || el === 0) {
+        throw new RangeError();
+      }
+    });
     // 입력값이 3개가 아닌경우
     if (input.length !== 3) {
       throw new RangeError();
@@ -42,12 +43,6 @@ class App {
     if (new Set(input).size !== 3) {
       throw new RangeError();
     }
-    // 숫자가 아닌 값이나 0이하의 수가 입력 될 경우
-    input.forEach((el) => {
-      if (isNaN(parseInt(el)) || el === 0) {
-        throw new TypeError();
-      }
-    });
     return true;
   }
 
