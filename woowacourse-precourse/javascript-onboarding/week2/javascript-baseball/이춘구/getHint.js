@@ -23,8 +23,8 @@ function getHint(computerAnswer, userAnswer) {
   });
 
   const ball = matches.ball !== 0 ? matches.ball + HINT.ball : "";
-  const space = ball !== "" ? " " : "";
   const strike = matches.strike !== 0 ? matches.strike + HINT.strike : "";
+  const space = ball !== "" && strike !== "" ? " " : "";
   const nothing = matches.nothing === userNumbers.length ? HINT.nothing : "";
 
   const hint = `${ball + space + strike + nothing}`;
