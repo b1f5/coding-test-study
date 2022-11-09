@@ -1,9 +1,12 @@
 function solution(survey, choices) {
-  // prettier-ignore
-  // 모든 성격유형을 풀어서 0점으로 초기화
-  const scoreBoard = { R: 0, T: 0, C: 0, F: 0, J: 0, M: 0, A: 0, N: 0 };
+  const scoreBoard = {};
   // 의도적으로 알파벳순서가 아니게 담아줌
   const TYPE_PAIR = ["TR", "CF", "JM", "NA"];
+  const All_TYPE = TYPE_PAIR.join("");
+  // 모든 성격유형을 풀어서 0점으로 초기화
+  for (const i of All_TYPE) {
+    scoreBoard[i] = 0;
+  }
 
   // 여기에 유저의 성격유형을 하나씩 더해줄예정
   let result = "";
