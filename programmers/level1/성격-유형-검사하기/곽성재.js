@@ -2,10 +2,8 @@ function solution(survey, choices) {
   // prettier-ignore
   // 모든 성격유형을 풀어서 0점으로 초기화
   const scoreBoard = { R: 0, T: 0, C: 0, F: 0, J: 0, M: 0, A: 0, N: 0 };
-  const ALL_TYPE = "RTCFJMAN";
-
-  // 만약 성격유형의 종류들이 알파벳순이 아니어도 동작하는지 확인
-  // const ALL_TYPE = "TRCFMJAN";
+  // 의도적으로 알파벳순서가 아니게 담아줌
+  const TYPE_PAIR = ["TR", "CF", "JM", "NA"];
 
   // 여기에 유저의 성격유형을 하나씩 더해줄예정
   let result = "";
@@ -13,7 +11,7 @@ function solution(survey, choices) {
   for (let i = 0; i < survey.length; i++) {
     // 유저가 선택한 선택을 미리 선언
     const choice = choices[i];
-    // 4 - x, x - 4 보다는 절대값 사용
+    // 4를 기준으로 동일하게 떨어져 있으므로, 점수처리를 17줄과 같이 해준다
     const score = Math.abs(choice - 4);
     if (choice < 4) {
       const disagree = survey[i][0];
@@ -23,19 +21,19 @@ function solution(survey, choices) {
       scoreBoard[agree] += score;
     }
   }
-
-  // 하나씩 건너 뛰어가며 순회하기 위해 i += 2
-  for (let i = 0; i < ALL_TYPE.length; i += 2) {
-    const typePrev = ALL_TYPE[i];
-    const typeNext = ALL_TYPE[i + 1];
-    if (scoreBoard[typePrev] > scoreBoard[typeNext]) {
-      result += typePrev;
-    } else if (scoreBoard[typePrev] < scoreBoard[typeNext]) {
-      result += typeNext;
+  for (const pair of TYPE_PAIR) {
+    const typeOne = pair[0];
+    const typeAnother = pair[1];
+    if (scoreBoard[typeOne] > scoreBoard[typeAnother]) {
+      result += typeOne;
+    } else if (scoreBoard[typeOne] < scoreBoard[typeAnother]) {
+      result += typeAnother;
     } else {
-      result += typePrev < typeNext ? typePrev : typeNext;
+      // 명확하게 알파벳순서로 넣어주기
+      result += typeOne < typeAnother ? typeOne : typeAnother;
     }
   }
+
   return result;
 }
 
