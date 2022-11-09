@@ -16,11 +16,11 @@ function solution(survey, choices) {
     // 4 - x, x - 4 보다는 절대값 사용
     const score = Math.abs(choice - 4);
     if (choice < 4) {
-      const type = survey[i][0];
-      scoreBoard[type] += score;
+      const disagree = survey[i][0];
+      scoreBoard[disagree] += score;
     } else if (choice > 4) {
-      const type = survey[i][1];
-      scoreBoard[type] += score;
+      const agree = survey[i][1];
+      scoreBoard[agree] += score;
     }
   }
 
