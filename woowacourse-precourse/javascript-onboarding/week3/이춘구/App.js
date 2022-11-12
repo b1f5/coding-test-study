@@ -1,5 +1,4 @@
 const { Random } = require("@woowacourse/mission-utils");
-const Lotto = require("./Lotto");
 
 const {
   requireUserInput,
@@ -16,6 +15,30 @@ const {
 } = require("./constant");
 
 class App {
+  #amount;
+
+  setAmount(amount) {
+    this.#amount = amount;
+  }
+
+  #lottos;
+
+  setLottos(lottos) {
+    this.#lottos = lottos;
+  }
+
+  #winningNumbers;
+
+  setWinningNumbers(winningNumbers) {
+    this.#winningNumbers = winningNumbers;
+  }
+
+  #bonusNumber;
+
+  setBonusNumber(bonusNumber) {
+    this.#bonusNumber = bonusNumber;
+  }
+
   validatePurchaseAmount(amount) {
     const isNumber = REGEXP.number.test(amount);
     if (!isNumber) throw new Error(ERROR.purchaseAmount);
@@ -64,9 +87,8 @@ class App {
     if (hasDuplicates) throw new Error(ERROR.winningNumbers);
 
     const sortedNumbers = numbers.sort((a, b) => a - b);
-    console.log(sortedNumbers);
     const firstNumber = sortedNumbers[0];
-    const lastNumber = sortedNumbers.pop();
+    const lastNumber = sortedNumbers[sortedNumbers.length - 1];
     const isInRange =
       LOTTO.rangeStart <= firstNumber && lastNumber <= LOTTO.rangeEnd;
     if (!isInRange) throw new Error(ERROR.winningNumbers);
@@ -98,11 +120,8 @@ class App {
     };
 
     lottos.forEach((lotto) => {
-      console.log("로또", lotto);
-      console.log("로또", this.#winningNumbers);
       const totalNumbersCount = lotto.length + winningNumbers.length;
       const uniqueNumbersCount = new Set([...lotto, ...winningNumbers]).size;
-      console.log(uniqueNumbersCount);
       const matchingNumbersCount = totalNumbersCount - uniqueNumbersCount;
       const isMatchingBonusNumber = lotto.includes(bonusNumber);
 
@@ -113,7 +132,7 @@ class App {
         prizeStatus.second += 1;
       if (matchingNumbersCount === 6) prizeStatus.first += 1;
     });
-    console.log(prizeStatus);
+
     return prizeStatus;
   }
 
@@ -123,17 +142,18 @@ class App {
 
   calculateEarningsRate(status, purchaseAmount) {
     const totalEarnings = Object.entries(status).reduce(
-      (currentEarnings, [prize, count]) => {
-        console.log(currentEarnings, prize, count);
-        return currentEarnings + PRIZE_MONEY[prize] * count;
-      },
+      (currentEarnings, [prize, count]) =>
+        currentEarnings + PRIZE_MONEY[prize] * count,
       0
     );
 
     const earningsRate = (totalEarnings / purchaseAmount) * 100;
-    const roundedEarningsRate = this.roundAt(earningsRate, 2);
+    const formattedEarningsRate = this.roundAt(
+      earningsRate,
+      2
+    ).toLocaleString();
 
-    return roundedEarningsRate;
+    return formattedEarningsRate;
   }
 
   printPrizeStatus(status, earningsRate) {
@@ -148,57 +168,14 @@ class App {
     printMessage(NOTICE.earningsRate(earningsRate));
   }
 
-  // state = {
-  //   amount: 0,
-  //   winningNumbers: [],
-  //   bonusNumber: 0,
-  // };
-
-  // setState(newState) {
-  //   this.state = {
-  //     ...this.state,
-  //     ...newState,
-  //   };
-  // }
-
-  // log(name) {
-  //   return printMessage(name);
-  // }
-
-  #amount;
-
-  setAmount(amount) {
-    this.#amount = amount;
-  }
-
-  #lottos;
-
-  setLottos(lottos) {
-    this.#lottos = lottos;
-  }
-
-  #winningNumbers;
-
-  setWinningNumbers(winningNumbers) {
-    this.#winningNumbers = winningNumbers;
-  }
-
-  #bonusNumber;
-
-  setBonusNumber(bonusNumber) {
-    this.#bonusNumber = bonusNumber;
-  }
-
   purchasePhase() {
     requireUserInput(REQUIRE.purchaseAmount, (amount) => {
       const validPurchaseAmount = this.validatePurchaseAmount(amount);
       this.setAmount(validPurchaseAmount);
 
-      console.log("구입 금액", this.#amount);
       const count = this.countPurchases(this.#amount);
       const lottos = this.makeLottoNumbers(count);
       this.setLottos(lottos);
-      console.log("생성된 로또", this.#lottos);
       this.noticePurchasedLottos(count, this.#lottos);
 
       return this.winningNumbersPhase();
@@ -208,9 +185,8 @@ class App {
   winningNumbersPhase() {
     requireUserInput(REQUIRE.winningNumbers, (winningNumbers) => {
       const validWinningNumbers = this.validateWinningNumbers(winningNumbers);
-
       this.setWinningNumbers(validWinningNumbers);
-      console.log("당첨 번호", this.#winningNumbers);
+
       return this.bonusNumberPhase();
     });
   }
