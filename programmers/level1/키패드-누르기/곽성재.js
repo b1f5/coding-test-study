@@ -1,5 +1,6 @@
 function solution(numbers, hand) {
-  const answer = [];
+  let answer = "";
+  const FIXED_KEY = { 1: "L", 4: "L", 7: "L", 3: "R", 6: "R", 9: "R" };
   let positionLeft = "*";
   let positionRight = "#";
   numbers.forEach((num) => {
@@ -14,17 +15,17 @@ function solution(numbers, hand) {
         const leftDist = calcDist(destinationCoord, leftCoord);
         const rightDist = calcDist(destinationCoord, rightCoord);
         if (leftDist > rightDist) {
-          answer.push("R");
+          answer += "R";
           positionRight = num;
         } else if (leftDist < rightDist) {
-          answer.push("L");
+          answer += "L";
           positionLeft = num;
         } else if (leftDist === rightDist) {
           if (hand === "right") {
-            answer.push("R");
+            answer += "R";
             positionRight = num;
           } else {
-            answer.push("L");
+            answer += "L";
             positionLeft = num;
           }
         }
@@ -33,45 +34,39 @@ function solution(numbers, hand) {
       case 1:
       case 4:
       case 7:
-        answer.push(FIXED_KEY[num]);
+        answer += "L";
         positionLeft = num;
         break;
 
       case 3:
       case 6:
       case 9:
-        answer.push(FIXED_KEY[num]);
+        answer += "R";
         positionRight = num;
         break;
     }
   });
 
-  return answer.join("");
+  return answer;
 }
 
-// prettier-ignore
-const FIXED_KEY = { 1: "L", 4: "L", 7: "L", 3: "R", 6: "R", 9: "R" };
-const KEYPAD = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-  ["*", 0, "#"],
-];
-
-const HAND_BOARD = {
-  right: "R",
-  left: "L",
-};
-
 const findCoord = (target) => {
-  const targetCoord = [0, 0];
-  KEYPAD.forEach((row, idx) => {
-    if (row.includes(target)) {
-      targetCoord[0] = idx;
-      return;
+  let targetCoord = [0, 0];
+  const KEYPAD = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    ["*", 0, "#"],
+  ];
+  for (let i = 0; i < KEYPAD.length; i++) {
+    for (let j = 0; j < KEYPAD[0].length; j++) {
+      if (KEYPAD[i][j] === target) {
+        targetCoord = [i, j];
+        break;
+      }
     }
-  });
-  targetCoord[1] = KEYPAD[targetCoord[0]].indexOf(target);
+  }
+
   return targetCoord;
 };
 
