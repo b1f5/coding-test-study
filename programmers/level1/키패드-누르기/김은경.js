@@ -27,14 +27,8 @@ function solution(numbers, hand) {
       currentRightHand = number;
       result += typedByRightFinger;
     } else {
-      const right_horMovement = Math.abs(keypad[number][0] - keypad[currentRightHand][0]);
-      const right_vertMovement = Math.abs(keypad[number][1] - keypad[currentRightHand][1]);
-      const distanceRight = right_horMovement + right_vertMovement;
-
-      const left_horMovement = Math.abs(keypad[number][0] - keypad[currentLeftHand][0]);
-      const left_vertMovement = Math.abs(keypad[number][1] - keypad[currentLeftHand][1]);
-      const distanceLeft = left_horMovement + left_vertMovement;
-
+      const distanceRight = getDistance(keypad, number, currentRightHand)
+      const distanceLeft = getDistance(keypad, number, currentLeftHand)
       if (distanceRight === distanceLeft) {
         if (hand === 'right') {
           currentRightHand = number;
@@ -55,6 +49,13 @@ function solution(numbers, hand) {
     }
   });
   return result;
+}
+
+//prettier-ignore
+function getDistance(keypad, number, currentHand) {
+  const horizontalMovement = Math.abs(keypad[number][0] - keypad[currentHand][0]);
+  const verticalMovement = Math.abs(keypad[number][1] - keypad[currentHand][1]);
+  return horizontalMovement + verticalMovement;
 }
 
 // expected result : LRLLLRLLRRL
