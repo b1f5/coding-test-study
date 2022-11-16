@@ -14,45 +14,47 @@ function solution(numbers, hand) {
     9: [2, 2],
     '#': [2, 3],
   };
-  const result = [];
+  const typedByLeftFinger = "L"
+  const typedByRightFinger = "R"
   let currentRightHand = '#';
   let currentLeftHand = '*';
+  let result = "";
   numbers.forEach((number) => {
     if (/[147]/.test(number)) {
       currentLeftHand = number;
-      result.push('L');
+      result += typedByLeftFinger;
     } else if (/[369]/.test(number)) {
       currentRightHand = number;
-      result.push('R');
+      result += typedByRightFinger;
     } else {
-      const rightFirst = Math.abs(keypad[number][0] - keypad[currentRightHand][0]);
-      const rightSecond = Math.abs(keypad[number][1] - keypad[currentRightHand][1]);
-      const distanceRight = rightFirst + rightSecond;
+      const right_horMovement = Math.abs(keypad[number][0] - keypad[currentRightHand][0]);
+      const right_vertMovement = Math.abs(keypad[number][1] - keypad[currentRightHand][1]);
+      const distanceRight = right_horMovement + right_vertMovement;
 
-      const leftFirst = Math.abs(keypad[number][0] - keypad[currentLeftHand][0]);
-      const leftSecond = Math.abs(keypad[number][1] - keypad[currentLeftHand][1]);
-      const distanceLeft = leftFirst + leftSecond;
+      const left_horMovement = Math.abs(keypad[number][0] - keypad[currentLeftHand][0]);
+      const left_vertMovement = Math.abs(keypad[number][1] - keypad[currentLeftHand][1]);
+      const distanceLeft = left_horMovement + left_vertMovement;
 
       if (distanceRight === distanceLeft) {
         if (hand === 'right') {
           currentRightHand = number;
-          result.push('R');
+          result += typedByRightFinger;
         } else {
           currentLeftHand = number;
-          result.push('L');
+          result += typedByLeftFinger;
         }
       } else {
         if (distanceRight < distanceLeft) {
           currentRightHand = number;
-          result.push('R');
+          result += typedByRightFinger;
         } else {
           currentLeftHand = number;
-          result.push('L');
+          result += typedByLeftFinger;
         }
       }
     }
   });
-  return result.join('');
+  return result;
 }
 
 // expected result : LRLLLRLLRRL
