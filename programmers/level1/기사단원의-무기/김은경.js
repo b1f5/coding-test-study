@@ -18,9 +18,10 @@ function solution(number, limit, power) {
 // getAliquot : 기사의 공격력 구하는 함수
 function getAliquot(num) {
   const aliquot = [];
-  for (let i = 1; i <= num; i++) {
+  for (let i = 1; i <= Math.sqrt(num); i++) {
     if (num % i === 0) {
       aliquot.push(i);
+      if (num / i !== i) aliquot.push(num / i);
     }
   }
   const powerOfTheKnight = aliquot.length;
