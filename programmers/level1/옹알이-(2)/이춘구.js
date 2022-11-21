@@ -27,9 +27,9 @@ function checkPronounceablity(word) {
   if (hasConsecutives) return false;
 
   // 발음 가능한 단어들을 빈문자열로 대체하고 남은 문자열이 있다면 false를 반환한다.
-  const pronounceablesRegex = /aya|ye|woo|ma/g;
-  const nonPronounceables = word.replaceAll(pronounceablesRegex, "");
-  if (nonPronounceables !== "") return false;
+  const pronounceablesRegExp = /aya|ye|woo|ma/g;
+  const hasNonPronounceables = !!word.replaceAll(pronounceablesRegExp, "");
+  if (hasNonPronounceables) return false;
 
   // 그 외의 경우는 true를 반환한다.
   return true;
