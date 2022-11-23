@@ -9,8 +9,9 @@ function solution(ingredient) {
         i = -1;
         answer += 1;
         continue;
+      } else {
+        i += 2;
       }
-      i += 2;
     }
   }
   return answer;
