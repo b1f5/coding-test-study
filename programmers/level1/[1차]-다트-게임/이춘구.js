@@ -4,7 +4,6 @@
  * @returns {number} 총점수
  */
 function solution(dartResult) {
-  // prettier-ignore
   // 보너스와 옵션의 점수를 각각 할당해놓는다.
   const BONUS = { S: 1, D: 2, T: 3 };
   const OPTION = { "#": -1, "": 1, "*": 2 };
