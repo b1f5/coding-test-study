@@ -10,19 +10,22 @@ function solution(dartResult) {
 
   // 각 세트를 구성하는 정규표현식을 만든다.
   const setRegExp = /(\d{1,2})([SDT])([*#]?)/g;
-  // match를 사용해 세트들의 배열로 만든다. 예) [ '1S', '2D*', '3T' ]
-  const sets = dartResult.match(setRegExp);
+
+  // matchAll를 사용해 세트별로 분리하고 각 세트를 점수, 보너스, 옵션으로 분리한 이차원 배열로 만든다.
+  // 예) [
+  //       [ '1S', '1', 'S', '', index: 0, input: '1S2D*3T', groups: undefined ],
+  //       [ '2D*', '2', 'D', '*', index: 2, input: '1S2D*3T', groups: undefined ],
+  //       [ '3T', '3', 'T', '', index: 5, input: '1S2D*3T', groups: undefined ]
+  //     ]
+  const sets = [...dartResult.matchAll(setRegExp)];
 
   // 점수를 기록할 배열을 만든다.
   const scores = [];
 
   // 각 세트를 순회한다.
-  sets?.forEach((set, i) => {
-    // matchAll을 사용해 점수, 보너스, 옵션으로 분리해서 찾는다.
-    // 예) [ [ '1S', '1', 'S', '', index: 0, input: '1S', groups: undefined ] ]
-    const [matchArray] = set.matchAll(setRegExp);
-    // 점수, 보너스, 옵션에 해당하는 값만 뽑는다. 예) [ '1', 'S', '' ]
-    const [score, bonus, option] = matchArray.slice(1, 4);
+  sets.forEach((set, i) => {
+    // 현재 세트에서 점수, 보너스, 옵션에 해당하는 값만 잘라낸다. 예) [ '1', 'S', '' ]
+    const [score, bonus, option] = set.slice(1, 4);
     // 현재 점수를 scores 배열에 넣는다.
     scores.push(Number(score));
     // 현재 점수에 보너스와 옵션 점수를 반영한다.
