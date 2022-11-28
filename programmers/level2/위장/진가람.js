@@ -3,8 +3,7 @@ function solution(clothes) {
   let res = 1;
   const map = new Map();
 
-  clothes.forEach((el) => {
-    const [_, category] = el;
+  clothes.forEach(([_, category]) => {
     map.set(category, (map.get(category) || 0) + 1);
   });
 
