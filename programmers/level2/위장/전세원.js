@@ -85,11 +85,8 @@ function solution(clothes) {
     },
     {}
   );
-  console.log(typesAndNumbers);
 
   const amountOfClothes = Object.values(typesAndNumbers);
-  console.log(amountOfClothes);
   answer += amountOfClothes.reduce((acc, cur) => acc * cur) - 1;
   return answer;
 }
-console.log(solution(clothes));
