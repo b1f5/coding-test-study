@@ -33,8 +33,6 @@ function solution(str1, str2) {
     answer = cal;
   } else if (slicedStr1.length === 0 && slicedStr2.length === 0) {
     answer = 65536;
-  } else {
-    anwer = 0;
   }
   return answer;
 }
