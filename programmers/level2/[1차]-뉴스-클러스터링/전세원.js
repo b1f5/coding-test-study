@@ -40,6 +40,6 @@ function solution(str1, str2) {
 }
 
 const str1 = "FRANCE";
-const str2 = "french+";
+const str2 = "qopwb+";
 
 console.log(solution(str1, str2));
