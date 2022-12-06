@@ -1,10 +1,6 @@
 function solution(maps) {
-  let answer = 0;
   const MAPS_ROW = maps.length - 1;
   const MAPS_COL = maps[0].length - 1;
-  const DISTANCE = Array.from({ length: MAPS_ROW }, () =>
-    new Array(MAPS_COL).fill(Infinity)
-  );
 
   const isValid = (row, col) => {
     if(row < 0 || row > MAPS_ROW) return false;
@@ -28,6 +24,7 @@ function solution(maps) {
     while(queue.length) {
       let [row, col, distance] = queue.shift();
 
+      // 끝에 다다랐다면 거리 return
       if(row === MAPS_ROW && col === MAPS_COL) return distance;
 
       for(const [DIR_ROW, DIR_COL] of Object.values(DIR)) {
@@ -35,6 +32,7 @@ function solution(maps) {
 
         if(isValid(NEXT_ROW, NEXT_COL) === false) continue;
 
+        // 지나온 길은 0으로 바꿔줌
         maps[NEXT_ROW][NEXT_COL] = 0;
 
         queue.push([NEXT_ROW, NEXT_COL, distance + 1]);
