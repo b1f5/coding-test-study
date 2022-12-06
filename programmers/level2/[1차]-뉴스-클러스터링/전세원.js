@@ -3,11 +3,12 @@ function solution(str1, str2) {
   const slicedStr1 = sliceTwoChar(str1);
   const slicedStr2 = sliceTwoChar(str2);
   function sliceTwoChar(headLine) {
+    const onlyAlphabet = new RegExp("^[a-zA-Z]*$");
     const temp = [];
     for (let i = 0; i < headLine.length - 1; i++) {
       if (
-        headLine[i].match(/^[a-zA-Z]*$/) &&
-        headLine[i + 1].match(/^[a-zA-Z]*$/)
+        onlyAlphabet.test(headLine[i]) &&
+        onlyAlphabet.test(headLine[i + 1])
       ) {
         const slicedChar = headLine.slice(i, i + 2);
         temp.push(slicedChar.toLowerCase());
@@ -18,9 +19,9 @@ function solution(str1, str2) {
   const intersection = [];
   const copySlicedStr2 = [...slicedStr2];
   slicedStr1.forEach((element) => {
-    if (copySlicedStr2.includes(element)) {
+    const indexFound = copySlicedStr2.indexOf(element);
+    if (indexFound !== -1) {
       intersection.push(element);
-      const indexFound = copySlicedStr2.indexOf(element);
       copySlicedStr2[indexFound] = "";
     }
     // console.log(`복사본: ${copySlicedStr2}`);
