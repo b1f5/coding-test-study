@@ -4,7 +4,6 @@ function solution(files) {
   files.forEach((fileName, index) => {
     const lowerCaseName = fileName.toLowerCase();
     const reNum = /[0-9]/g;
-    // const reString = /[a-z]/g;
     const reString = /[^0-9]/g;
     const numberIndex = lowerCaseName.search(reNum);
     const namesHead = lowerCaseName
@@ -13,12 +12,10 @@ function solution(files) {
       .join("");
     const exceptHead = lowerCaseName.slice(numberIndex);
     const stringIndex = exceptHead.search(reString);
-    console.log(stringIndex);
     const namesNumber =
       stringIndex === -1
         ? Number(exceptHead.slice(0))
         : Number(exceptHead.slice(0, stringIndex));
-    console.log(namesHead, namesNumber);
     const [name, head, number] = [fileName, namesHead, namesNumber];
     namesHeadNumber.push([name, head, number]);
   });
