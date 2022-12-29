@@ -8,12 +8,12 @@ function solution(people, limit) {
 
   let heavier = people[left];
   let lighter = people[right];
-  while(left <= right) {
+  while (left <= right) {
     // 내림차순으로 정렬한 people에서
     // 더 무거운 left의 무게와 더 가벼운 right의 무게를 더해줌
     // limit를 넘는다면, 더 무거운 사람 혼자만 탈 수 있으므로
     // left를 오른쪽으로 한칸 옮겨줌
-    if(heavier + lighter > limit) {
+    if (heavier + lighter > limit) {
       left += 1;
     }
     // 두 합이 limit 보다 가볍거나 같다면 같이 탈 수 있으므로,
