@@ -1,18 +1,13 @@
-// n = 3628800 result = 10  => 10!
-// n = 7 result = 3 =>  3!
-
-function solution(n) {
+function solution(chicken) {
   var answer = 0;
-  let temp = 1;
-  let k = 1;
-  for (let i = 1; i <= k; i++) {
-    temp *= i;
-    if (temp <= n) {
-      k++;
-    } else {
-      break;
-    }
+  let coupon = chicken;
+  let bonusChicken = 0;
+  while (coupon >= 10) {
+    console.log(coupon, bonusChicken);
+    const changeToChicken = Math.floor(coupon / 10);
+    bonusChicken += changeToChicken;
+    coupon = coupon + changeToChicken - changeToChicken * 10;
   }
-  answer = k - 1;
+  answer += bonusChicken;
   return answer;
 }
