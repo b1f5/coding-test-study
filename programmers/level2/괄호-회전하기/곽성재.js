@@ -1,10 +1,7 @@
 function solution(s) {
   var answer = 0;
   for (let i = 0; i < s.length; i++) {
-    let tester = "";
-    for (let j = i; j < s.length + i; j++) {
-      tester += s[j % s.length];
-    }
+    let tester = s.slice(i) + s.slice(0, i);
     if (calculate(tester)) answer++;
   }
   return answer;
@@ -25,8 +22,6 @@ function calculate(str) {
       candidate = el;
     } else if (candidate === pairs[el]) {
       stack.pop();
-      // stack.splice(stack.lastIndexOf(pairs[el]), 1); // LIFO
-      // stack.splice(stack.indexOf(pairs[el]), 1); // FIFO
       if (stack.length === 0) {
         candidate = "";
       } else {
