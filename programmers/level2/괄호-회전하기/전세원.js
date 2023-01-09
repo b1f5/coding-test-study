@@ -18,9 +18,10 @@ function solution(s) {
   return answer;
 }
 function validateBracket(arrayBracket) {
-  if (countBracket(arrayBracket) === false) {
-    return false;
-  } else if (orderBracket(arrayBracket) === false) {
+  if (
+    countBracket(arrayBracket) === false ||
+    orderBracket(arrayBracket) === false
+  ) {
     return false;
   } else {
     for (let i = 0; i < arrayBracket.length; i++) {
