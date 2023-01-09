@@ -10,34 +10,29 @@ function solution(msg) {
     dictionary[String.fromCharCode(alphabet)] = alphabetOrder;
     alphabet++;
   }
-  console.log(dictionary);
+
   let wordMsg = msg;
   while (wordMsg.length) {
     wordMsg = verifyIncludes(wordMsg);
-    console.log("wordMsf", wordMsg);
   }
   function verifyIncludes(word) {
     let verifiedMsg;
-    let answerTemp = [];
-    let wordIdx = [];
+    let answerTemp;
 
     for (i = word.length; i > 0; i--) {
       const searchWord = word.slice(0, i);
       if (dictionary[searchWord]) {
-        wordIdx.push(i);
-        answerTemp.push(dictionary[searchWord]);
-        console.log(i, dictionary[searchWord]);
+        verifiedMsg = word.slice(i);
+        answerTemp = dictionary[searchWord];
         const newWord = word.slice(0, i + 1);
         if (!dictionary[newWord]) {
           dictionary[newWord] = alphabetOrder;
           alphabetOrder++;
-          console.log(dictionary);
         }
+        break;
       }
     }
-    console.log(wordIdx);
-    verifiedMsg = word.slice(wordIdx[0]);
-    answer.push(answerTemp[0]);
+    answer.push(answerTemp);
     return verifiedMsg;
   }
   return answer;
