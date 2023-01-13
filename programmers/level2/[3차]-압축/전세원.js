@@ -20,9 +20,9 @@ function solution(msg) {
     let answerTemp;
 
     for (i = word.length; i > 0; i--) {
-      const searchWord = word.slice(0, i);
+      const searchWord = word.slice(0, i); //
       if (dictionary[searchWord]) {
-        verifiedMsg = word.slice(i);
+        verifiedMsg = word.slice(i); //
         answerTemp = dictionary[searchWord];
         const newWord = word.slice(0, i + 1);
         if (!dictionary[newWord]) {
