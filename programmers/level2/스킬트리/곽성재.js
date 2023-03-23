@@ -16,23 +16,21 @@ function solution(skill, skill_trees) {
     if (validateOrder(indexOfUserSkill)) {
       answer += 1;
     }
-
-    indexOfUserSkill = [];
   });
 
   return answer;
 }
 
 function validateOrder(arr) {
-  let temp = 0;
-  while (temp < arr.length) {
-    if (temp !== arr[temp]) {
+  let idx = 0;
+  while (idx < arr.length) {
+    const valOfIdx = arr[idx];
+    if (idx !== valOfIdx) {
       break;
     }
-    temp++;
+    idx++;
   }
-  console.log(temp === arr.length);
-  return temp === arr.length;
+  return idx === arr.length;
 }
 
 console.log(solution("CBD", ["BACDE", "CBADF", "AECB", "BDA", "XU"])); // 3
