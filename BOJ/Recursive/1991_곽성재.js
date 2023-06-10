@@ -2,9 +2,9 @@ const fs = require("fs");
 const filePath = process.platform === "linux" ? "/dev/stdin" : "../input.txt";
 const input = fs.readFileSync(filePath).toString().trim().split("\n");
 
-const [N, ..._] = input;
+const [_, ...inputs] = input;
 
-const nodes = _.map((v) => v.split(" "));
+const nodes = inputs.map((v) => v.split(" "));
 const trees = {};
 nodes.forEach(([node, left, right]) => {
   trees[node] = { leftNode: left, rightNode: right };
