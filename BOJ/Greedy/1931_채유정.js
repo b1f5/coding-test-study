@@ -30,5 +30,5 @@ for(let i=1; i<arr.length; i++){
         answer++;
     }
 }
-    
+
 console.log(answer);
