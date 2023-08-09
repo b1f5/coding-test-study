@@ -8,8 +8,7 @@ const getDiff = (first, second) =>
   [...first].reduce((diff, char, i) => diff + (char !== second[i]), 0);
 
 const getDist = (mbtiArr) => {
-  // 16 * 3 넘어가면 무조건 거리는 0
-  if (mbtiArr.length >= 48) return 0;
+  if (mbtiArr.length >= 33) return 0;
 
   let min = Infinity;
 
