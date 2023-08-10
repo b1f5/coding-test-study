@@ -10,6 +10,8 @@ for (let i = 1; i < Number(T) * 2; i += 2) {
   const MBTIs = cases[i].split(" ");
   const MBTIsLength = MBTIs.length;
 
+  // 학생 수가 32명을 초과하면 동일한 MBTI를 가진 학생이 반드시 3명이 되어서,
+  // 심리적 거리의 최솟값이 0이 된다.
   if (MBTIsLength > 16 * 2) {
     answer.push(0);
     continue;
