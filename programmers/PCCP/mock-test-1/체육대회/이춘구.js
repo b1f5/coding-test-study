@@ -1,9 +1,8 @@
 function solution(ability) {
   let answer = 0;
-  const abilityCount = ability.length;
+  const studentCount = ability.length;
   const sportsCount = ability[0].length;
-  const pickedRow = new Array(abilityCount).fill(false);
-  const pickedColumn = new Array(sportsCount).fill(false);
+  const pickedStudent = new Array(studentCount).fill(false);
 
   pick(0, 0);
 
@@ -13,17 +12,12 @@ function solution(ability) {
       return;
     }
 
-    for (let r = 0; r < abilityCount; r += 1) {
-      if (pickedRow[r]) continue;
-      for (let c = 0; c < sportsCount; c += 1) {
-        if (pickedColumn[c]) continue;
+    for (let r = 0; r < studentCount; r += 1) {
+      if (pickedStudent[r]) continue;
 
-        pickedRow[r] = true;
-        pickedColumn[c] = true;
-        pick(count + 1, sum + ability[r][c]);
-        pickedRow[r] = false;
-        pickedColumn[c] = false;
-      }
+      pickedStudent[r] = true;
+      pick(count + 1, sum + ability[r][count]);
+      pickedStudent[r] = false;
     }
   }
 
